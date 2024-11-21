@@ -12,8 +12,9 @@ export default defineConfig({
         }),
     ],
     server: {
-        host: 'storytail.acount.local',
-        origin: '0.0.0.0:8000',
+        host: '0.0.0.0',
+        origin: '0.0.0.0',
+        port: 8000,
         hmr: {
             host: 'localhost',
         }
