@@ -11,4 +11,11 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        host: 'storytail.acount.local',
+        origin: '0.0.0.0:8000',
+        hmr: {
+            host: 'localhost',
+        }
+    }
 });
