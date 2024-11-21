@@ -9,6 +9,7 @@ services:
                 ipv4_address: 172.59.0.2
 
     mysql:
+        platform: linux/x86_64
         container_name: storytail-mysql
         image: mysql:8.0.25
         environment:
