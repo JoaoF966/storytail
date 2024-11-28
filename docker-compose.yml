@@ -1,0 +1,55 @@
+services:
+    storytail:
+        container_name: storytail
+        build: .
+        volumes:
+            -   ./:/var/www/html
+        networks:
+            localnet:
+                ipv4_address: 172.59.0.2
+
+    mysql:
+        platform: linux/x86_64
+        container_name: storytail-mysql
+        image: mysql:8.0.25
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: storytail_db
+        volumes:
+            - "./storytail-mysql-data:/var/lib/mysql"
+        ports:
+            - "3309:3306"
+        networks:
+            localnet:
+                ipv4_address: 172.59.0.3
+
+    phpmyadmin:
+        container_name: storytail-phpmyadmin
+        image: phpmyadmin/phpmyadmin
+        environment:
+            PMA_HOST: mysql
+        networks:
+            localnet:
+                ipv4_address: 172.59.0.4
+
+    webserver:
+        container_name: storytail-webserver
+        image: nginx:1.27.1-alpine
+        volumes:
+            - ./webserver/nginx/site/:/etc/nginx/sites-available
+            - ./webserver/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./:/var/www/html
+        ports:
+            - "8080:80"
+            - "8000:8000"
+            - "5175:5173"
+        networks:
+            localnet:
+                ipv4_address: 172.59.0.5
+
+networks:
+    localnet:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 172.59.0.0/16
