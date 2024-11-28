@@ -7,19 +7,20 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
-                'resources/js/landing.js',
-                'resources/css/custom.css'
             ],
             refresh: true,
         }),
     ],
+    base: '/',
     server: {
         host: '0.0.0.0',
-        origin: '0.0.0.0',
         port: 8000,
         hmr: {
-            host: 'localhost',
-        }
+            host: 'storytail.acount.local',
+            protocol: 'http',
+            port: 3000,
+        },
+        strictPort: true,
     }
 });
 

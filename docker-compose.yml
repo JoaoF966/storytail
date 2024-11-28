@@ -40,9 +40,8 @@ services:
             - ./webserver/nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./:/var/www/html
         ports:
-            - "8080:80"
             - "8000:8000"
-            - "5175:5173"
+            - "3000:3000"
         networks:
             localnet:
                 ipv4_address: 172.59.0.5

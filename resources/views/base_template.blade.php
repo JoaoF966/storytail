@@ -173,7 +173,7 @@
 
     <!-- Main Content -->
     <main>
-        <div class="container" style="padding: 20px;">
+        <div class="container p-5">
             @yield('content')
         </div>
     </main>
@@ -199,5 +199,7 @@
             <p>&copy; {{ date('Y') }} storytail.pt</p>
         </div>
     </footer>
+
+<script src="/js/app.js"></script>
 </body>
 </html>
