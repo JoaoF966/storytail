@@ -11,16 +11,12 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    base: '/',
     server: {
         host: '0.0.0.0',
-        port: 8000,
+        port: 3000,
         hmr: {
-            host: 'storytail.acount.local',
-            protocol: 'http',
-            port: 3000,
-        },
-        strictPort: true,
+            host: 'localhost',
+            port: 8000
+        }
     }
 });
-
