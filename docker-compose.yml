@@ -30,6 +30,8 @@ services:
         image: phpmyadmin/phpmyadmin
         environment:
             PMA_HOST: mysql
+        ports:
+            - "8001:80"
         networks:
             localnet:
                 ipv4_address: 172.59.0.4
