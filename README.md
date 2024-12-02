@@ -85,7 +85,9 @@ ___
 ```
 
 5. Access the application in your browser:
+
    http://localhost:8080 <- main app
+
    http://localhost:8001 <- phpmyadmin
 
 ___
