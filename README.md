@@ -1,66 +1,109 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# StoryTail: A Website for Children's Books
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<div style="text-align: center">
+<img src="public/images/logotop.png" alt="storytail" width="300" height="300">
+</div>
 
-## About Laravel
+Welcome to __StoryTail__, a project created for the Laboratório de Programação course. This repository contains a web application designed to host and manage children's books, encouraging young readers to explore the world of storytelling.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project follows Agile methodologies, specifically the Scrum framework, to ensure iterative development and
+collaboration throughout the course.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+___
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Project Overview
 
-## Learning Laravel
+### 🛠️ Project Objectives
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Develop a functional and user-friendly website for children's books.
+Apply Agile and Scrum practices for team collaboration and iterative progress.
+Implement the Model-View-Controller (MVC) architectural pattern to separate concerns and enhance maintainability.
+Utilize Docker for containerization, ensuring a consistent development and deployment environment.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+___
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 🏗️ Tech Stack
 
-## Laravel Sponsors
+- __Backend:__ [PHP(Laravel)]
+- __Frontend:__ [Vite,HTML/CSS(TailwindCSS)/JavaScript]
+- __Database:__ [MySQL]
+- __Containerization:__ Docker
+- __Architecture:__ MVC
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+___
 
-### Premium Partners
+### 📋 Agile & Scrum Implementation
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- __Sprints:__ Weekly sprints to define, develop, and deliver features incrementally.
+- __Roles:__
+    - __Product Owner:__ Defines requirements and priorities.
+    - __Scrum Master:__ Facilitates Scrum practices and removes blockers.
+    - __Development Team:__ Implements features and tests functionality.
+- __Ceremonies:__
+    - Sprint Planning
+    - Daily Standups
+    - Sprint Review
+    - Sprint Retrospective
 
-## Contributing
+Repository Structure
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+___
 
-## Code of Conduct
+### 🚀 Getting Started
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Prerequisites
 
-## Security Vulnerabilities
+- __Docker__ and __Docker Compose__ installed
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Setup
 
-## License
+1. Clone the repository:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+  git clone https://github.com/JoaoF966/storytail 
+  cd storytail
+```
+
+2. Start the application using Docker Compose:
+
+```bash
+  docker compose up --build
+```
+
+3. Enter the storytail container and execute migrations
+
+```bash
+   docker exec -it storytail bash
+   php artisan migrate
+```
+
+4. Enter the storytail container and start vite in dev mode
+
+```bash
+  docker exec -it storytail bash
+  npm run dev
+```
+
+5. Access the application in your browser:
+   http://localhost:8080 <- main app
+   http://localhost:8001 <- phpmyadmin
+
+___
+
+### 📝 Documentation
+
+Detailed documentation, including user stories, diagrams, and Scrum artifacts, is available in the docs/ directory.
+
+___
+
+### 🌟 Contributing
+
+- [Joao](https://github.com/JoaoF966)
+- [Pedro Martelo](https://github.com/xuuba)
+- [Ricardo Castro](https://github.com/riccycastro)
+
+This project is developed collaboratively as part of the Laboratório de Programação subject
+at [ISLAGaia](https://www.islagaia.pt/pt/). Contributions and discussions are guided by Agile principles and Scrum
+ceremonies.
+
+#### Let’s build a magical place for young readers to explore stories! 📚✨
