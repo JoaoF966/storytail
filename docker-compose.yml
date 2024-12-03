@@ -3,7 +3,9 @@ services:
         container_name: storytail
         build: .
         volumes:
-            -   ./:/var/www/html
+            -  ./:/var/www/html
+        ports:
+            - "3000:3000"
         networks:
             localnet:
                 ipv4_address: 172.59.0.2
@@ -28,6 +30,8 @@ services:
         image: phpmyadmin/phpmyadmin
         environment:
             PMA_HOST: mysql
+        ports:
+            - "8001:80"
         networks:
             localnet:
                 ipv4_address: 172.59.0.4
@@ -41,7 +45,6 @@ services:
             - ./:/var/www/html
         ports:
             - "8000:8000"
-            - "3000:3000"
         networks:
             localnet:
                 ipv4_address: 172.59.0.5

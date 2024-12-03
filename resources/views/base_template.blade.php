@@ -199,7 +199,5 @@
             <p>&copy; {{ date('Y') }} storytail.pt</p>
         </div>
     </footer>
-
-<script src="/js/app.js"></script>
 </body>
 </html>
