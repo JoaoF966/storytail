@@ -18,7 +18,29 @@ class BookService
      */
     public function getAll(): Collection
     {
-        // Your service logic here
         return $this->books->findAllBooks();
+    }
+
+    /**
+     * @return Collection<Book>
+     */
+    public function getCurrentMonthBooks(): Collection
+    {
+        return $this->books->findCurrentMonthBooks();
+    }
+
+    /**
+     * @return Collection<Book>
+     */
+    public function getJustAddedBooks(): Collection
+    {
+        return $this->books->findJustAddedBooks();
+    }
+
+    /**
+     * @return Collection<Book>
+     */
+    public function getTopReadBooks(): Collection {
+        return $this->books->findTopReadBooks();
     }
 }
