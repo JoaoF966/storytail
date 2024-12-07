@@ -8,15 +8,19 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
             ],
-            refresh: false,
+            refresh: true,
         }),
     ],
     server: {
         host: '0.0.0.0',
         port: 3000,
-        // hmr: {
-        //     host: 'localhost',
-        //     port: 8000
-        // }
+         hmr: {
+             host: '0.0.0.0',
+             port: 8000,
+         },
+        watch: {
+            usePolling: true,
+            interval: 300,
+        }
     }
 });
