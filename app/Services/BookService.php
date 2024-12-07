@@ -2,14 +2,15 @@
 
 namespace App\Services;
 
+use App\Http\Filters\BookFilter;
 use App\Models\Book;
 use App\Storage\FindBooks;
 use Illuminate\Support\Collection;
 
-class BookService
+readonly class BookService
 {
     public function __construct(
-        private readonly FindBooks $books
+        private FindBooks $books
     ) {
     }
 
@@ -42,5 +43,13 @@ class BookService
      */
     public function getTopReadBooks(): Collection {
         return $this->books->findTopReadBooks();
+    }
+
+    /**
+     * @return Collection<Book>
+     */
+    public function getFilteredBooks(BookFilter $bookFilter): Collection
+    {
+        return $this->books->findBooksByBookFilter($bookFilter);
     }
 }

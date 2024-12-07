@@ -2,6 +2,7 @@
 
 namespace App\Storage;
 
+use App\Http\Filters\BookFilter;
 use App\Models\Book;
 use Illuminate\Support\Collection;
 
@@ -23,4 +24,8 @@ interface FindBooks
      * @return Collection<Book>
      */
     public function findTopReadBooks(): Collection;
+    /**
+     * @return Collection<Book>
+     */
+    public function findBooksByBookFilter(BookFilter $bookFilter): Collection;
 }

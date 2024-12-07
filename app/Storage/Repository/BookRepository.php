@@ -2,6 +2,7 @@
 
 namespace App\Storage\Repository;
 
+use App\Http\Filters\BookFilter;
 use App\Models\Book;
 use App\Storage\FindBooks;
 use Illuminate\Support\Collection;
@@ -47,5 +48,16 @@ class BookRepository implements FindBooks
             ->groupBy('books.id', 'books.title')
             ->orderBy('times_read', 'desc')
             ->get();
+    }
+
+    /**
+     * @return Collection<Book>
+     */
+    public function findBooksByBookFilter(BookFilter $bookFilter): Collection {
+        $queryBuilder = Book::query();
+
+       return $queryBuilder
+           ->paginate(perPage: 15, page: $bookFilter->page)
+           ->getCollection();
     }
 }
