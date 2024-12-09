@@ -19,4 +19,9 @@ class TagRepository implements StoreTag, FindsTags
     {
         return Tag::all();
     }
+
+    public function findById(int $id): ?Tag
+    {
+        return Tag::find($id);
+    }
 }

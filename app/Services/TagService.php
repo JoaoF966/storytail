@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\TagNotFoundException;
 use App\Models\Tag;
 use App\Storage\FindsTags;
 use App\Storage\StoreTag;
@@ -28,5 +29,23 @@ readonly class TagService
     public function getAllTags(): Collection
     {
         return $this->tags->getAllTags();
+    }
+
+    public function updateTag(int $id, string $tagName): void
+    {
+        $tag = $this->findTagById($id);
+
+        $tag->name = $tagName;
+
+        $tag->save();
+    }
+
+    private function findTagById(int $id): Tag
+    {
+        if ($tag = $this->tags->findById($id)) {
+            return $tag;
+        }
+
+        throw TagNotFoundException::fromId($id);
     }
 }

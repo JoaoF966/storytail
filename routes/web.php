@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
 Route::prefix('tags')->group(function () {
     Route::get('/', [TagController::class, 'index'])->name('tag.index');
     Route::post('/', [TagController::class, 'create'])->name('tag.create');
+    Route::put('/{id}', [TagController::class, 'edit'])->name('tag.edit');
 })->middleware(['auth', 'verified']);
 
 
