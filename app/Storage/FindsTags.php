@@ -11,4 +11,5 @@ interface FindsTags
      * @return Collection<Tag>
      */
     public function getAllTags(): Collection;
+    public function findById(int $id): ?Tag;
 }

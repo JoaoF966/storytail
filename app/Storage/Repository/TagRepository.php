@@ -9,12 +9,14 @@ use Illuminate\Support\Collection;
 
 class TagRepository implements StoresTag, FindsTags
 {
-
     public function store(Tag $tag): void
     {
         $tag->save();
     }
 
+    /**
+     * @return Collection<Tag>
+     */
     public function getAllTags(): Collection
     {
         return Tag::all();

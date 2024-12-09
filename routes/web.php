@@ -28,6 +28,8 @@ Route::prefix('admin')->group(function () {
     Route::prefix('authors')->group(function () {
         Route::get('/', [AdminAuthorController::class, 'index'])->name('author.index');
         Route::post('/', [AdminAuthorController::class, 'create'])->name('author.create');
+        Route::put('/{id}', [AdminAuthorController::class, 'edit'])->name('author.edit');
+        Route::delete('/{id}', [AdminAuthorController::class, 'destroy'])->name('author.destroy');
     });
 
     Route::prefix('books')->group(function () {

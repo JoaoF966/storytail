@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\AuthorService;
 use App\Services\BookService;
 use App\Services\TagService;
+use App\Storage\Repository\AuthorRepository;
 use App\Storage\Repository\BookRepository;
 use App\Storage\Repository\TagRepository;
 use Illuminate\Foundation\Application;
@@ -36,6 +38,19 @@ class AppServiceProvider extends ServiceProvider
             return new TagService(
                $tagRepository,
                $tagRepository,
+            );
+        });
+
+        $this->app->singleton(AuthorRepository::class, function (Application $app) {
+            return new AuthorRepository();
+        });
+
+        $this->app->singleton(AuthorService::class, function (Application $app) {
+            $authorRepository = $app->make(AuthorRepository::class);
+
+            return new AuthorService(
+               $authorRepository,
+               $authorRepository,
             );
         });
     }
