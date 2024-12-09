@@ -4,13 +4,13 @@ namespace App\Services;
 
 use App\Http\Filters\BookFilter;
 use App\Models\Book;
-use App\Storage\FindBooks;
+use App\Storage\FindsBooks;
 use Illuminate\Support\Collection;
 
 readonly class BookService
 {
     public function __construct(
-        private FindBooks $books
+        private FindsBooks $books
     ) {
     }
 

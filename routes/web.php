@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\BookController as ApiBookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
@@ -17,6 +18,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::prefix('tags')->group(function () {
+    Route::get('/', [TagController::class, 'index'])->name('tag.index');
+    Route::post('/', [TagController::class, 'create'])->name('tag.create');
+})->middleware(['auth', 'verified']);
 
 
 Route::get('/book/{id}', function ($id) {

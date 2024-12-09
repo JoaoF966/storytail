@@ -6,7 +6,7 @@ use App\Http\Filters\BookFilter;
 use App\Models\Book;
 use Illuminate\Support\Collection;
 
-interface FindBooks
+interface FindsBooks
 {
     /**
      * @return Collection<Book>

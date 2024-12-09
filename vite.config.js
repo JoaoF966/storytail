@@ -21,6 +21,7 @@ export default defineConfig({
         watch: {
             usePolling: true,
             interval: 300,
+            ignored: ['**/node_modules/**', '**/vendor/**', '**/public/**', '**/storage/**'],
         }
     }
 });

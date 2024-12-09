@@ -4,11 +4,11 @@ namespace App\Storage\Repository;
 
 use App\Http\Filters\BookFilter;
 use App\Models\Book;
-use App\Storage\FindBooks;
+use App\Storage\FindsBooks;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
-class BookRepository implements FindBooks
+class BookRepository implements FindsBooks
 {
     /**
      * @return Collection<Book>
