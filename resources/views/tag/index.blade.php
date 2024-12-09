@@ -16,6 +16,10 @@
                     <x-modal name="create-tag-form-modal" :show="$errors->tagCreation->isNotEmpty()" focusable>
                         <form method="post" action="{{ route('tag.create') }}" class="p-6">
                             @csrf
+                            <h2 class="text-lg font-medium text-gray-900">
+                                {{ __('Create Tag') }}
+                            </h2>
+
                             <div class="mt-6">
                                 <x-input-label for="name" :value="__('Name')"/>
                                 <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" required
@@ -31,7 +35,7 @@
                                 </x-secondary-button>
 
                                 <x-primary-button class="ms-3">
-                                    {{ __('Create tag') }}
+                                    {{ __('Create') }}
                                 </x-primary-button>
                             </div>
                         </form>

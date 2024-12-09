@@ -4,10 +4,10 @@ namespace App\Storage\Repository;
 
 use App\Models\Tag;
 use App\Storage\FindsTags;
-use App\Storage\StoreTag;
+use App\Storage\StoresTag;
 use Illuminate\Support\Collection;
 
-class TagRepository implements StoreTag, FindsTags
+class TagRepository implements StoresTag, FindsTags
 {
 
     public function store(Tag $tag): void

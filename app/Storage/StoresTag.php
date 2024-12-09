@@ -4,7 +4,7 @@ namespace App\Storage;
 
 use App\Models\Tag;
 
-interface StoreTag
+interface StoresTag
 {
     public function store(Tag $tag): void;
 }

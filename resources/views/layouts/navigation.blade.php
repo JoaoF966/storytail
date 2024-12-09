@@ -18,8 +18,8 @@
                     <x-nav-link :href="route('tag.index')" :active="request()->routeIs('tag.index')">
                         {{ __('Tags') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('book.index')" :active="request()->routeIs('book.index')">
-                        {{ __('Books') }}
+                    <x-nav-link :href="route('author.index')" :active="request()->routeIs('author.index')">
+                        {{ __('Authors') }}
                     </x-nav-link>
                 </div>
             </div>

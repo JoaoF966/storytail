@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthorController as AdminAuthorController;
 use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Api\BookController as ApiBookController;
@@ -22,6 +23,11 @@ Route::prefix('admin')->group(function () {
         Route::post('/', [TagController::class, 'create'])->name('tag.create');
         Route::put('/{id}', [TagController::class, 'edit'])->name('tag.edit');
         Route::delete('/{id}', [TagController::class, 'destroy'])->name('tag.destroy');
+    });
+
+    Route::prefix('authors')->group(function () {
+        Route::get('/', [AdminAuthorController::class, 'index'])->name('author.index');
+        Route::post('/', [AdminAuthorController::class, 'create'])->name('author.create');
     });
 
     Route::prefix('books')->group(function () {
