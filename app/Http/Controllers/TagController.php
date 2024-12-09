@@ -34,12 +34,18 @@ class TagController extends Controller
     }
 
     public function edit(Request $request, int $id): RedirectResponse {
-        $request->validateWithBag('tagUpdate', [
+        $request->validateWithBag('tagEdition', [
             'name' => ['required','string','max:255', 'alpha_dash'],
         ]);
 
         $this->tagService->updateTag($id, $request->get('name'));
 
         return redirect()->route('tag.index')->with('status', __('Tag updated suc   cessfully.'));
+    }
+
+    public function destroy(int $id): RedirectResponse {
+        $this->tagService->deleteTag($id);
+
+        return redirect()->route('tag.index')->with('status', __('Tag deleted successfully.'));
     }
 }

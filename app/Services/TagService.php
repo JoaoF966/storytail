@@ -48,4 +48,10 @@ readonly class TagService
 
         throw TagNotFoundException::fromId($id);
     }
+
+    public function deleteTag(int $id): void
+    {
+        $tag = $this->findTagById($id);
+        $tag->delete();
+    }
 }

@@ -61,7 +61,7 @@
                                     >{{ __('edit') }}</x-primary-button>
                                     <x-danger-button
                                         x-data=""
-                                        x-on:click.prevent="$dispatch('open-modal', 'confirm-tag-deletion')"
+                                        x-on:click.prevent="url = '{{ route('tag.destroy', ['id' => $tag->id]) }}';$dispatch('open-modal', 'confirm-tag-deletion')"
                                     >{{ __('delete') }}</x-danger-button>
                                 </td>
                             </tr>
@@ -89,6 +89,31 @@
                                 <x-primary-button class="ms-3">
                                     {{ __('Update tag') }}
                                 </x-primary-button>
+                            </div>
+                        </form>
+                    </x-modal>
+
+                    <x-modal name="confirm-tag-deletion" :show="$errors->tagDeletion->isNotEmpty()" focusable>
+                        <form method="post" :action="url" class="p-6">
+                            @csrf
+                            @method('delete')
+
+                            <h2 class="text-lg font-medium text-gray-900">
+                                {{ __('Are you sure you want to delete this tag?') }}
+                            </h2>
+
+                            <p class="mt-1 text-sm text-gray-600">
+                                {{ __('Once this tag is deleted, it will be removed from all books and this action is irreversible!') }}
+                            </p>
+
+                            <div class="mt-6 flex justify-end">
+                                <x-secondary-button x-on:click="$dispatch('close')">
+                                    {{ __('Cancel') }}
+                                </x-secondary-button>
+
+                                <x-danger-button class="ms-3">
+                                    {{ __('Delete Tag') }}
+                                </x-danger-button>
                             </div>
                         </form>
                     </x-modal>
