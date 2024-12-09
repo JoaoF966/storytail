@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 readonly class TagService
 {
     public function __construct(
-        private StoresTag $storeTag,
+        private StoresTag $store,
         private FindsTags $tags,
     ) {
     }
@@ -20,7 +20,7 @@ readonly class TagService
         $tag = new Tag();
         $tag->name = $tagName;
 
-        $this->storeTag->store($tag);
+        $this->store->store($tag);
     }
 
     /**
@@ -37,7 +37,7 @@ readonly class TagService
 
         $tag->name = $tagName;
 
-        $tag->save();
+        $this->store->store($tag);
     }
 
     private function findTagById(int $id): Tag
@@ -52,6 +52,6 @@ readonly class TagService
     public function deleteTag(int $id): void
     {
         $tag = $this->findTagById($id);
-        $tag->delete();
+        $this->store->delete($tag);
     }
 }

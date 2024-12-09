@@ -62,6 +62,7 @@ class AuthorController extends Controller
     }
 
     public function destroy(int $id): RedirectResponse {
-
+        $this->authorService->deleteAuthor($id);
+        return redirect()->route('author.index')->with('status', __('Author deleted successfully.'));
     }
 }

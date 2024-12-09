@@ -26,4 +26,9 @@ class TagRepository implements StoresTag, FindsTags
     {
         return Tag::find($id);
     }
+
+    public function delete(Tag $tag): void
+    {
+        $tag->delete();
+    }
 }

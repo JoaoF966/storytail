@@ -26,4 +26,9 @@ class AuthorRepository implements StoresAuthor, FindsAuthor
     {
         return Author::find($id);
     }
+
+    public function delete(Author $author): void
+    {
+        $author->delete();
+    }
 }

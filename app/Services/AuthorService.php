@@ -53,6 +53,12 @@ readonly class AuthorService
         $this->store->store($author);
     }
 
+    public function deleteAuthor(int $id): void
+    {
+        $author = $this->findAuthorById($id);
+        $this->store->delete($author);
+    }
+
     private function findAuthorById(int $id): Author
     {
         if ($author = $this->authors->findById($id)) {
