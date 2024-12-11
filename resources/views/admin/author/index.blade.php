@@ -11,7 +11,7 @@
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg flex justify-end">
                     <x-primary-button
                             x-data=""
-                            x-on:click.prevent="action = 'Create'; author= {}; url='{{ route('author.create') }}'; method='post'; $dispatch('open-modal', 'author-form-modal')"
+                            x-on:click.prevent="action = 'Create'; author= {}; url='{{ route('admin.author.create') }}'; method='post'; $dispatch('open-modal', 'author-form-modal')"
                     >{{ __('Create Author') }}</x-primary-button>
                     <x-modal name="author-form-modal" :show="$errors->isNotEmpty()" focusable>
                         <form method="post" :action="url" class="p-6">
@@ -94,11 +94,11 @@
                                 <td class="px-4 py-2 text-end">
                                     <x-primary-button
                                         x-data=""
-                                        x-on:click.prevent="showModal = true; author = JSON.parse('{{ json_encode($author->toArray()) }}'); url = '{{ route('author.edit', ['id' => $author->id]) }}'; action = 'Edit'; method='put'; $dispatch('open-modal', 'author-form-modal')"
+                                        x-on:click.prevent="showModal = true; author = JSON.parse('{{ json_encode($author->toArray()) }}'); url = '{{ route('admin.author.edit', ['id' => $author->id]) }}'; action = 'Edit'; method='put'; $dispatch('open-modal', 'author-form-modal')"
                                     >{{ __('edit') }}</x-primary-button>
                                     <x-danger-button
                                         x-data=""
-                                        x-on:click.prevent="url = '{{ route('author.destroy', ['id' => $author->id]) }}';$dispatch('open-modal', 'confirm-author-deletion')"
+                                        x-on:click.prevent="url = '{{ route('admin.author.destroy', ['id' => $author->id]) }}';$dispatch('open-modal', 'confirm-author-deletion')"
                                     >{{ __('delete') }}</x-danger-button>
                                 </td>
                         @endforeach

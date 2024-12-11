@@ -20,17 +20,17 @@ Route::prefix('admin')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::prefix('tags')->group(function () {
-        Route::get('/', [TagController::class, 'index'])->name('tag.index');
-        Route::post('/', [TagController::class, 'create'])->name('tag.create');
-        Route::put('/{id}', [TagController::class, 'update'])->name('tag.edit');
-        Route::delete('/{id}', [TagController::class, 'destroy'])->name('tag.destroy');
+        Route::get('/', [TagController::class, 'index'])->name('admin.tag.index');
+        Route::post('/', [TagController::class, 'create'])->name('admin.tag.create');
+        Route::put('/{id}', [TagController::class, 'update'])->name('admin.tag.edit');
+        Route::delete('/{id}', [TagController::class, 'destroy'])->name('admin.tag.destroy');
     });
 
     Route::prefix('authors')->group(function () {
-        Route::get('/', [AdminAuthorController::class, 'index'])->name('author.index');
-        Route::post('/', [AdminAuthorController::class, 'create'])->name('author.create');
-        Route::put('/{id}', [AdminAuthorController::class, 'edit'])->name('author.edit');
-        Route::delete('/{id}', [AdminAuthorController::class, 'destroy'])->name('author.destroy');
+        Route::get('/', [AdminAuthorController::class, 'index'])->name('admin.author.index');
+        Route::post('/', [AdminAuthorController::class, 'create'])->name('admin.author.create');
+        Route::put('/{id}', [AdminAuthorController::class, 'edit'])->name('admin.author.edit');
+        Route::delete('/{id}', [AdminAuthorController::class, 'destroy'])->name('admin.author.destroy');
     });
 
     Route::prefix('books')->group(function () {
@@ -38,10 +38,10 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::prefix('age_groups')->group(function () {
-        Route::get('/', [AdminAgeGroupController::class, 'index'])->name('age_group.index');
-        Route::post('/', [AdminAgeGroupController::class, 'create'])->name('age_group.create');
-        Route::put('/{id}', [AdminAgeGroupController::class, 'edit'])->name('age_group.edit');
-        Route::delete('/{id}', [AdminAgeGroupController::class, 'destroy'])->name('age_group.destroy');
+        Route::get('/', [AdminAgeGroupController::class, 'index'])->name('admin.age_group.index');
+        Route::post('/', [AdminAgeGroupController::class, 'create'])->name('admin.age_group.create');
+        Route::put('/{id}', [AdminAgeGroupController::class, 'edit'])->name('admin.age_group.edit');
+        Route::delete('/{id}', [AdminAgeGroupController::class, 'destroy'])->name('admin.age_group.destroy');
     });
 })->middleware(['auth', 'verified']);
 

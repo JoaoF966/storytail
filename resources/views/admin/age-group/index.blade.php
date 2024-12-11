@@ -11,7 +11,7 @@
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg flex justify-end">
                     <x-primary-button
                         x-data=""
-                        x-on:click.prevent="action = 'Create'; author= {}; url='{{ route('age_group.create') }}'; method='post'; $dispatch('open-modal', 'age-group-form-modal')"
+                        x-on:click.prevent="action = 'Create'; author= {}; url='{{ route('admin.age_group.create') }}'; method='post'; $dispatch('open-modal', 'age-group-form-modal')"
                     >{{ __('Create Age group') }}</x-primary-button>
 
                     <x-modal name="age-group-form-modal" :show="$errors->isNotEmpty()" focusable>
@@ -62,11 +62,11 @@
                                 <td class="px-4 py-2 text-end">
                                     <x-primary-button
                                         x-data=""
-                                        x-on:click.prevent="showModal = true; ageGroup = '{{ $ageGroup->age_group }}'; url = '{{ route('age_group.edit', ['id' => $ageGroup->id]) }}'; action = 'Edit'; method='put'; $dispatch('open-modal', 'age-group-form-modal')"
+                                        x-on:click.prevent="showModal = true; ageGroup = '{{ $ageGroup->age_group }}'; url = '{{ route('admin.age_group.edit', ['id' => $ageGroup->id]) }}'; action = 'Edit'; method='put'; $dispatch('open-modal', 'age-group-form-modal')"
                                     >{{ __('edit') }}</x-primary-button>
                                     <x-danger-button
                                         x-data=""
-                                        x-on:click.prevent="url = '{{ route('age_group.destroy', ['id' => $ageGroup->id]) }}';$dispatch('open-modal', 'confirm-age-group-deletion')"
+                                        x-on:click.prevent="url = '{{ route('admin.age_group.destroy', ['id' => $ageGroup->id]) }}';$dispatch('open-modal', 'confirm-age-group-deletion')"
                                     >{{ __('delete') }}</x-danger-button>
                                 </td>
                             </tr>

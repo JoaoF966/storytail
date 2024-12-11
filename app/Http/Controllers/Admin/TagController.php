@@ -18,7 +18,7 @@ class TagController extends Controller
     public function index(): View
     {
         $tags = $this->tagService->getAllTags();
-        return view('tag.index', [
+        return view('admin.tag.index', [
             'tags' => $tags,
         ]);
     }
@@ -31,7 +31,7 @@ class TagController extends Controller
 
         $this->tagService->storeTag($request->get('name'));
 
-        return redirect()->route('tag.index')->with('status', __('Tag created successfully.'));
+        return redirect()->route('admin.tag.index')->with('status', __('Tag created successfully.'));
     }
 
     public function update(Request $request, int $id): RedirectResponse {
@@ -41,12 +41,12 @@ class TagController extends Controller
 
         $this->tagService->updateTag($id, $request->get('name'));
 
-        return redirect()->route('tag.index')->with('status', __('Tag updated suc   cessfully.'));
+        return redirect()->route('admin.tag.index')->with('status', __('Tag updated suc   cessfully.'));
     }
 
     public function destroy(int $id): RedirectResponse {
         $this->tagService->deleteTag($id);
 
-        return redirect()->route('tag.index')->with('status', __('Tag deleted successfully.'));
+        return redirect()->route('admin.tag.index')->with('status', __('Tag deleted successfully.'));
     }
 }

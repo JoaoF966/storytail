@@ -20,7 +20,7 @@ class AgeGroupController extends Controller
     {
         $ageGroups = $this->ageGroupService->getAllAgeGroups();
 
-        return view('age-group.index', [
+        return view('admin.age-group.index', [
             'ageGroups' => $ageGroups,
         ]);
     }
@@ -35,7 +35,7 @@ class AgeGroupController extends Controller
             AgeGroup::fromString($request->get('age_group')),
         );
 
-        return redirect()->route('age_group.index')->with('status', __('Age group created successfully.'));
+        return redirect()->route('admin.age_group.index')->with('status', __('Age group created successfully.'));
     }
 
     public function edit(Request $request, int $id): RedirectResponse
@@ -49,13 +49,13 @@ class AgeGroupController extends Controller
             $id,
         );
 
-        return redirect()->route('age_group.index')->with('status', __('Age group updated successfully.'));
+        return redirect()->route('admin.age_group.index')->with('status', __('Age group updated successfully.'));
     }
 
     public function destroy(int $id): RedirectResponse
     {
         $this->ageGroupService->deleteAgeGroup($id);
 
-        return redirect()->route('age_group.index')->with('status', __('Age group deleted successfully.'));
+        return redirect()->route('admin.age_group.index')->with('status', __('Age group deleted successfully.'));
     }
 }

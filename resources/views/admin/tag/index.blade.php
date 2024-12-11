@@ -14,7 +14,7 @@
                         x-on:click.prevent="$dispatch('open-modal', 'create-tag-form-modal')"
                     >{{ __('Create tag') }}</x-primary-button>
                     <x-modal name="create-tag-form-modal" :show="$errors->tagCreation->isNotEmpty()" focusable>
-                        <form method="post" action="{{ route('tag.create') }}" class="p-6">
+                        <form method="post" action="{{ route('admin.tag.create') }}" class="p-6">
                             @csrf
                             <h2 class="text-lg font-medium text-gray-900">
                                 {{ __('Create Tag') }}
@@ -61,11 +61,11 @@
                                 <td class="px-4 py-2 text-end">
                                     <x-primary-button
                                         x-data=""
-                                        x-on:click.prevent="showModal = true; tagName = '{{ $tag->name }}'; url = '{{ route('tag.edit', ['id' => $tag->id]) }}'; $dispatch('open-modal', 'edit-tag-form-modal')"
+                                        x-on:click.prevent="showModal = true; tagName = '{{ $tag->name }}'; url = '{{ route('admin.tag.edit', ['id' => $tag->id]) }}'; $dispatch('open-modal', 'edit-tag-form-modal')"
                                     >{{ __('edit') }}</x-primary-button>
                                     <x-danger-button
                                         x-data=""
-                                        x-on:click.prevent="url = '{{ route('tag.destroy', ['id' => $tag->id]) }}';$dispatch('open-modal', 'confirm-tag-deletion')"
+                                        x-on:click.prevent="url = '{{ route('admin.tag.destroy', ['id' => $tag->id]) }}';$dispatch('open-modal', 'confirm-tag-deletion')"
                                     >{{ __('delete') }}</x-danger-button>
                                 </td>
                             </tr>

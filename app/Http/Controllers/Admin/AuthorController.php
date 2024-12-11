@@ -19,7 +19,7 @@ class AuthorController extends Controller
     {
         $authors = $this->authorService->getAllAuthors();
 
-        return view('author.index', ['authors' => $authors]);
+        return view('admin.author.index', ['authors' => $authors]);
     }
 
     public function create(Request $request): RedirectResponse
@@ -38,7 +38,7 @@ class AuthorController extends Controller
             $request->get('nationality'),
         );
 
-        return redirect()->route('author.index')->with('status', __('Author created successfully.'));
+        return redirect()->route('admin.author.index')->with('status', __('Author created successfully.'));
     }
 
     public function edit(Request $request, int $id): RedirectResponse
@@ -58,11 +58,11 @@ class AuthorController extends Controller
            $request->get('nationality'),
        );
 
-        return redirect()->route('author.index')->with('status', __('Author updated successfully.'));
+        return redirect()->route('admin.author.index')->with('status', __('Author updated successfully.'));
     }
 
     public function destroy(int $id): RedirectResponse {
         $this->authorService->deleteAuthor($id);
-        return redirect()->route('author.index')->with('status', __('Author deleted successfully.'));
+        return redirect()->route('admin.author.index')->with('status', __('Author deleted successfully.'));
     }
 }
