@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\BookUserRead;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Ratingcontroller extends Controller
+class RatingController extends Controller
 {
     public function rateBook(Request $request, $id)
     {
         $request->validate([
-            'rating' => 'required|integer|min:1|max:5', 
+            'rating' => 'required|integer|min:1|max:5',
         ]);
 
-        $userId = Auth::id(); 
+        $userId = Auth::id();
 
 
         BookUserRead::updateOrCreate(
