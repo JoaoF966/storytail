@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('user_id');
-            $table->integer('progress')->default(0); // Percentual de leitura
-            $table->integer('rating')->nullable(); // Avaliação
-            $table->date('read_date')->nullable(); // Data de leitura
+            $table->integer('progress')->default(0);
+            $table->integer('rating')->nullable(); 
+            $table->date('read_date')->nullable();
             $table->timestamps();
     
             // Foreign keys
