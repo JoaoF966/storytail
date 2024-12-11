@@ -34,7 +34,7 @@ class TagController extends Controller
         return redirect()->route('tag.index')->with('status', __('Tag created successfully.'));
     }
 
-    public function edit(Request $request, int $id): RedirectResponse {
+    public function update(Request $request, int $id): RedirectResponse {
         $request->validateWithBag('tagEdition', [
             'name' => ['required','string','max:255', 'alpha_dash'],
         ]);

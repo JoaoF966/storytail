@@ -3,11 +3,11 @@
 namespace App\Storage\Repository;
 
 use App\Models\Author;
-use App\Storage\FindsAuthor;
+use App\Storage\FindsAuthors;
 use App\Storage\StoresAuthor;
 use Illuminate\Support\Collection;
 
-class AuthorRepository implements StoresAuthor, FindsAuthor
+class AuthorsRepository implements StoresAuthor, FindsAuthors
 {
     public function store(Author $author): void
     {

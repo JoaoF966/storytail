@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Services\AgeGroupService;
 use App\Services\AuthorService;
 use App\Services\BookService;
 use App\Services\TagService;
-use App\Storage\Repository\AuthorRepository;
+use App\Storage\Repository\AgeGroupRepository;
+use App\Storage\Repository\AuthorsRepository;
 use App\Storage\Repository\BookRepository;
 use App\Storage\Repository\TagRepository;
 use Illuminate\Foundation\Application;
@@ -41,16 +43,29 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->singleton(AuthorRepository::class, function (Application $app) {
-            return new AuthorRepository();
+        $this->app->singleton(AuthorsRepository::class, function (Application $app) {
+            return new AuthorsRepository();
         });
 
         $this->app->singleton(AuthorService::class, function (Application $app) {
-            $authorRepository = $app->make(AuthorRepository::class);
+            $authorRepository = $app->make(AuthorsRepository::class);
 
             return new AuthorService(
                $authorRepository,
                $authorRepository,
+            );
+        });
+
+        $this->app->singleton(AgeGroupRepository::class, function (Application $app) {
+            return new AgeGroupRepository();
+        });
+
+        $this->app->singleton(AgeGroupService::class, function (Application $app) {
+            $ageGroupRepository = $app->make(AgeGroupRepository::class);
+
+            return new AgeGroupService(
+               $ageGroupRepository,
+               $ageGroupRepository,
             );
         });
     }

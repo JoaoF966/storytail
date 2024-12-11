@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('author.index')" :active="request()->routeIs('author.index')">
                         {{ __('Authors') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('age_group.index')" :active="request()->routeIs('age_group.index')">
+                        {{ __('Age groups') }}
+                    </x-nav-link>
                 </div>
             </div>
 

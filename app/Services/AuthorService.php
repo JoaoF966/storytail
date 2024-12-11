@@ -4,14 +4,14 @@ namespace App\Services;
 
 use App\Exceptions\AuthorNotFoundException;
 use App\Models\Author;
-use App\Storage\FindsAuthor;
+use App\Storage\FindsAuthors;
 use App\Storage\StoresAuthor;
 use Illuminate\Support\Collection;
 
 readonly class AuthorService
 {
     public function __construct(
-        private FindsAuthor  $authors,
+        private FindsAuthors $authors,
         private StoresAuthor $store,
     ) {
     }

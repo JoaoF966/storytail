@@ -5,7 +5,7 @@ namespace App\Storage;
 use App\Models\Author;
 use Illuminate\Support\Collection;
 
-interface FindsAuthor
+interface FindsAuthors
 {
     /**
      * @return Collection<Author>

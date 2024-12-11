@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AgeGroupController as AdminAgeGroupController;
 use App\Http\Controllers\Admin\AuthorController as AdminAuthorController;
 use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Admin\TagController;
@@ -21,7 +22,7 @@ Route::prefix('admin')->group(function () {
     Route::prefix('tags')->group(function () {
         Route::get('/', [TagController::class, 'index'])->name('tag.index');
         Route::post('/', [TagController::class, 'create'])->name('tag.create');
-        Route::put('/{id}', [TagController::class, 'edit'])->name('tag.edit');
+        Route::put('/{id}', [TagController::class, 'update'])->name('tag.edit');
         Route::delete('/{id}', [TagController::class, 'destroy'])->name('tag.destroy');
     });
 
@@ -34,6 +35,13 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('books')->group(function () {
         Route::get('/', [AdminBookController::class, 'index'])->name('book.index');
+    });
+
+    Route::prefix('age_groups')->group(function () {
+        Route::get('/', [AdminAgeGroupController::class, 'index'])->name('age_group.index');
+        Route::post('/', [AdminAgeGroupController::class, 'create'])->name('age_group.create');
+        Route::put('/{id}', [AdminAgeGroupController::class, 'edit'])->name('age_group.edit');
+        Route::delete('/{id}', [AdminAgeGroupController::class, 'destroy'])->name('age_group.destroy');
     });
 })->middleware(['auth', 'verified']);
 
