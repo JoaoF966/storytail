@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\BookNotFoundException;
 use App\Http\Filters\BookFilter;
 use App\Models\Book;
 use App\Storage\FindsBooks;
@@ -51,5 +52,13 @@ readonly class BookService
     public function getFilteredBooks(BookFilter $bookFilter): Collection
     {
         return $this->books->findBooksByBookFilter($bookFilter);
+    }
+
+    private function getBookById(int $id): Book {
+        if ($book = $this->books->findBookById($id)) {
+            return $book;
+        }
+
+        throw BookNotFoundException::fromId($id);
     }
 }
