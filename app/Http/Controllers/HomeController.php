@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\BookService;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
@@ -11,10 +12,16 @@ class HomeController extends Controller
     ) {
     }
 
-    public function index()
+    public function index(): View
     {
-       # $string = $this->bookService->getAll();
+        $thisMonthBooks = $this->bookService->getCurrentMonthBooks();
+        $justAddedBooks = $this->bookService->getJustAddedBooks();
+        $topReadBooks = $this->bookService->getTopReadBooks();
 
-        return view('home.index');
+        return view('home.index', [
+            'thisMonthBooks' => $thisMonthBooks,
+            'justAddedBooks' => $justAddedBooks,
+            'topReadBooks' => $topReadBooks,
+        ]);
     }
 }

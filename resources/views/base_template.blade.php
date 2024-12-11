@@ -173,7 +173,7 @@
 
     <!-- Main Content -->
     <main>
-        <div class="container p-5">
+        <div class="container p-5 mx-auto">
             @yield('content')
         </div>
     </main>
