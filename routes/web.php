@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\Admin\AgeGroupController as AdminAgeGroupController;
 use App\Http\Controllers\Admin\AuthorController as AdminAuthorController;
 use App\Http\Controllers\Admin\BookController as AdminBookController;
@@ -49,8 +50,9 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/book/{id}', function ($id) {
-    return view('book_page');
+    return view('book_page', ['bookId' => $id]);
 })->name('book.page');
+Route::post('/books/{id}/rate', [RatingController::class, 'rateBook'])->middleware('auth')->name('books.rate');
 
 Route::prefix('api')->group(function () {
     Route::prefix('books')->group(function () {
