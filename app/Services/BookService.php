@@ -17,7 +17,7 @@ readonly class BookService
     /**
      * @return Collection<Book>
      */
-    public function getAll(): Collection
+    public function getAllBooks(): Collection
     {
         return $this->books->findAllBooks();
     }
