@@ -18,3 +18,8 @@
     text-align: center;
     padding: 15px;
 }
+
+
+.space-x-4 > *:not(:last-child) {
+    margin-right: -1rem; /* Espaçamento entre os botões */
+}

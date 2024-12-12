@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use App\Exceptions\BookNotFoundException;
 use App\Http\Filters\BookFilter;
 use App\Models\Book;
 use App\Storage\FindsBooks;
 use Illuminate\Support\Collection;
+use mysql_xdevapi\Exception;
 
 readonly class BookService
 {
@@ -51,5 +53,15 @@ readonly class BookService
     public function getFilteredBooks(BookFilter $bookFilter): Collection
     {
         return $this->books->findBooksByBookFilter($bookFilter);
+    }
+
+    public function getById(int $id): Book
+    {
+        $book= $this->books->findBookById($id);
+
+        if (is_null($book)) {
+            throw BookNotFoundException::fromId($id);
+        }
+        return $book;
     }
 }

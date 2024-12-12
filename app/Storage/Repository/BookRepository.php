@@ -60,4 +60,7 @@ class BookRepository implements FindsBooks
            ->paginate(perPage: 15, page: $bookFilter->page)
            ->getCollection();
     }
+    public function findBookById(int $id): ?Book{
+        return Book::find($id);
+    }
 }

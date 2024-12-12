@@ -28,4 +28,6 @@ interface FindsBooks
      * @return Collection<Book>
      */
     public function findBooksByBookFilter(BookFilter $bookFilter): Collection;
+
+    public function findBookById(int $id): ?Book;
 }

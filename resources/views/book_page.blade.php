@@ -22,15 +22,15 @@
 
             <!-- Descrição -->
             <p style="line-height: 1.6; color: #333;">
-            Lana Rhoades is an American internet personality, podcaster and former pornographic film actress.She has appeared in publications such as Hustler, Penthouse and Playboy. 
+            Lana Rhoades is an American internet personality, podcaster and former pornographic film actress.She has appeared in publications such as Hustler, Penthouse and Playboy.
             </p>
             <p style="line-height: 1.6; color: #333;">
-                When that scallywag sets his eye on Rusty, Rodeo Red had better figure out a way to save her best friend in the whole 
+                When that scallywag sets his eye on Rusty, Rodeo Red had better figure out a way to save her best friend in the whole
                 world. Can a cowgirl make a bargain with a varmint?
             </p>
 
             <!-- Botão -->
-            <a href="#" style="
+            <a href="{{route('book.read', ['id' => $id])}}" style="
                 display: inline-block;
                 padding: 15px 30px;
                 background: linear-gradient(to right, #FF6600, #FF0099);
