@@ -7,6 +7,7 @@ use App\Http\Filters\BookFilter;
 use App\Models\Book;
 use App\Storage\FindsBooks;
 use Illuminate\Support\Collection;
+use mysql_xdevapi\Exception;
 
 readonly class BookService
 {

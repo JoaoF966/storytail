@@ -49,8 +49,14 @@ Route::prefix('admin')->group(function () {
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::get('/book/{id}/read', [BookController::class, 'read'])->name('book.read');
+Route::get('/book/{id}/page/{page}', [BookController::class, 'loadPage'])->name('book.page.dynamic');
+Route::get('/book/{id}/load-page/{page}', [BookController::class, 'ajaxLoadPage'])->name('book.page.ajax');
+Route::get('/books/filter', [BookController::class, 'filter'])->name('books.filter');
+
+
 Route::get('/book/{id}', function ($id) {
-    return view('book_page', ['bookId' => $id]);
+    return view('book_page', ['id' => $id]);
 })->name('book.page');
 Route::post('/books/{id}/rate', [RatingController::class, 'rateBook'])->middleware('auth')->name('books.rate');
 

@@ -3,6 +3,7 @@
 @extends('base_template')
 
 @section('content')
+
     @if (!$thisMonthBooks->isEmpty())
         <x-book-list :books="$thisMonthBooks" :title=" (new DateTime())->format('F'). ' featured books'"/>
     @endif
