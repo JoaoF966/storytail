@@ -7,7 +7,6 @@ use App\Http\Filters\BookFilter;
 use App\Models\Book;
 use App\Storage\FindsBooks;
 use Illuminate\Support\Collection;
-use mysql_xdevapi\Exception;
 
 readonly class BookService
 {
@@ -55,11 +54,17 @@ readonly class BookService
         return $this->books->findBooksByBookFilter($bookFilter);
     }
 
-    private function getBookById(int $id): Book {
+    public function getBookById(int $id): Book
+    {
         if ($book = $this->books->findBookById($id)) {
             return $book;
         }
 
         throw BookNotFoundException::fromId($id);
+    }
+
+    public function getRelatedBooks(Book $book): Collection
+    {
+
     }
 }

@@ -15,7 +15,12 @@ Alpine.data('bookLoader', () => ({
     fetchBooks() {
         if (this.loading || this.noMoreBooks) return;
         this.loading = true;
-        fetch(`/api/books?page=${this.page}`)
+
+        // get querystring search parameters
+        const queryParameters = new URLSearchParams(window.location.search);
+        const searchTerm = queryParameters.get('search');
+
+        fetch(`/api/books?page=${this.page}&search=${searchTerm || ''}`)
             .then(res => res.json())
             .then(data => {
                 if (data.length === 0) {

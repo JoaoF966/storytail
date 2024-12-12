@@ -15,10 +15,7 @@ export default defineConfig({
     server: {
         host: '0.0.0.0',
         port: 3000,
-        hmr: {
-            host: "localhost"
-        }
-        ,
+        hmr: false,
         watch: {
             usePolling: true,
             ignored: ['**/node_modules/**', '**/vendor/**', '**/public/**', '**/storage/**'],

@@ -165,9 +165,12 @@
         </div>
         <!-- Search Bar -->
         <div class="search-bar">
+            <form action="{{ route('home.search') }}">
             <h1>FIND YOUR BOOK</h1>
-            <input type="text" placeholder="Search...">
+            <input type="text" name="search" placeholder="Search..." class="text-black"
+            value="{{ request()->get('search') }}">
             <button>Search</button>
+            </form>
         </div>
     </header>
 

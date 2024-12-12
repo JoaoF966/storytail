@@ -56,6 +56,15 @@ class BookRepository implements FindsBooks
     public function findBooksByBookFilter(BookFilter $bookFilter): Collection {
         $queryBuilder = Book::query();
 
+        if ($bookFilter->search) {
+            $queryBuilder->where('title', 'LIKE', "%{$bookFilter->search}%");
+
+            $queryBuilder->orWhereHas('authors', function ($query) use ($bookFilter) {
+                $query->where('first_name', 'LIKE', "%{$bookFilter->search}%")
+                    ->orWhere('last_name', 'LIKE', "%{$bookFilter->search}%");
+            });
+        }
+
        return $queryBuilder
            ->paginate(perPage: 15, page: $bookFilter->page)
            ->getCollection();
@@ -63,6 +72,7 @@ class BookRepository implements FindsBooks
 
     public function findBookById(int $id): ?Book
     {
-        return Book::find($id);
+        return Book::with('authors')
+            ->find($id);
     }
 }

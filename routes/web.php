@@ -1,15 +1,15 @@
 <?php
 
-use App\Http\Controllers\RatingController;
 use App\Http\Controllers\Admin\AgeGroupController as AdminAgeGroupController;
 use App\Http\Controllers\Admin\AuthorController as AdminAuthorController;
 use App\Http\Controllers\Admin\BookController as AdminBookController;
-use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Api\BookController as ApiBookController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
-
 
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', function () {
@@ -21,10 +21,10 @@ Route::prefix('admin')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::prefix('tags')->group(function () {
-        Route::get('/', [TagController::class, 'index'])->name('admin.tag.index');
-        Route::post('/', [TagController::class, 'create'])->name('admin.tag.create');
-        Route::put('/{id}', [TagController::class, 'update'])->name('admin.tag.edit');
-        Route::delete('/{id}', [TagController::class, 'destroy'])->name('admin.tag.destroy');
+        Route::get('/', [AdminTagController::class, 'index'])->name('admin.tag.index');
+        Route::post('/', [AdminTagController::class, 'create'])->name('admin.tag.create');
+        Route::put('/{id}', [AdminTagController::class, 'update'])->name('admin.tag.edit');
+        Route::delete('/{id}', [AdminTagController::class, 'destroy'])->name('admin.tag.destroy');
     });
 
     Route::prefix('authors')->group(function () {
@@ -55,9 +55,7 @@ Route::get('/book/{id}/load-page/{page}', [BookController::class, 'ajaxLoadPage'
 Route::get('/books/filter', [BookController::class, 'filter'])->name('books.filter');
 
 
-Route::get('/book/{id}', function ($id) {
-    return view('book_page', ['id' => $id]);
-})->name('book.page');
+Route::get('/book/{id}', [BookController::class, 'view'])->name('book.page');
 Route::post('/books/{id}/rate', [RatingController::class, 'rateBook'])->middleware('auth')->name('books.rate');
 
 Route::prefix('api')->group(function () {
@@ -65,5 +63,7 @@ Route::prefix('api')->group(function () {
         Route::get('/', [ApiBookController::class, 'list'])->name('api.books.list');;
     });
 });
+
+Route::get('/search', [HomeController::class, 'search'])->name('home.search');
 
 require __DIR__ . '/auth.php';

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Controllers\Api;
+namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use App\Http\Filters\BookFilter;
 use App\Services\BookService;
 use Illuminate\Http\JsonResponse;
@@ -19,9 +19,16 @@ class BookController extends Controller
     {
         $bookApiFilter = BookFilter::fromRequest($request);
 
+        //add book url to each book
+        $books = $this->bookService->getFilteredBooks($bookApiFilter);
+
+        foreach ($books as $book) {
+            $book->url = route('book.page', ['id' => $book->id]);
+        }
+
         return response()
             ->json(
-                $this->bookService->getFilteredBooks($bookApiFilter)
+                $books
             );
     }
 }

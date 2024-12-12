@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Controllers\Admin;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use App\Services\TagService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

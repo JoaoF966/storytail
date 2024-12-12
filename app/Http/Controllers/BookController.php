@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Controllers;
+namespace App\Http\Controllers;
 
 use App\Services\BookService;
 
@@ -11,10 +11,23 @@ class BookController extends Controller
 
     }
 
+    public function view($id)
+    {
+        $book = $this->bookService->getBookById($id);
+
+        $thisMonthBooks = $this->bookService->getCurrentMonthBooks();
+
+        return view('book_page',
+            [
+                'book' => $book,
+                'thisMonthBooks' => $thisMonthBooks,
+            ]);
+    }
+
     //
     public function read(int $id)
     {
-        $book = $this->bookService->getById($id);
+        $book = $this->bookService->getBookById($id);
         return view('book.media', [
             'currentPageImage' => 'images/Books/book105/Giraffes_Can_t_Dance_pages-to-jpg-0001.jpg',
             'currentPageNumber' => 1,
@@ -22,6 +35,7 @@ class BookController extends Controller
             'bookId' => 'book105',
             'showMovie' => $book->has_movie, // Verifica se o livro tem um filme associado
             'movieFile' => $book->movie_file_path ?? null, // Caminho do filme, se existir
+            'book' => $book
         ]);
     }
 

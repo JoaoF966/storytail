@@ -5,5 +5,18 @@
                 {{ __('Books') }}
             </h2>
         </x-slot>
+
+
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg flex justify-end">
+                    <x-primary-button
+                        x-data=""
+                        x-on:click.prevent="action = 'Create'; author= {}; url='{{ route('admin.author.create') }}'; method='post'; $dispatch('open-modal', 'author-form-modal')"
+                    >{{ __('Create Book') }}</x-primary-button>
+                </div>
+            </div>
+        </div>
     </x-app-layout>
+
 </div>

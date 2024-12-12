@@ -4,7 +4,7 @@
     <div class="flex flex-col items-center bg-gray-100 p-6 mx-auto max-w-6xl min-h-screen">
         <!-- Close  -->
         <div class="flex justify-center w-full mb-4">
-            <a href="{{ url('/') }}" class="text-gray-600 text-lg font-bold hover:text-gray-800">
+            <a href="{{ route('book.page', ['id' => $book->id])  }}" class="text-gray-600 text-lg font-bold hover:text-gray-800">
                 ✖ CLOSE
             </a>
         </div>
