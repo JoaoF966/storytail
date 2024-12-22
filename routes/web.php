@@ -54,7 +54,6 @@ Route::get('/book/{id}/page/{page}', [BookController::class, 'loadPage'])->name(
 Route::get('/book/{id}/load-page/{page}', [BookController::class, 'ajaxLoadPage'])->name('book.page.ajax');
 Route::get('/books/filter', [BookController::class, 'filter'])->name('books.filter');
 
-
 Route::get('/book/{id}', [BookController::class, 'view'])->name('book.page');
 Route::post('/books/{id}/rate', [RatingController::class, 'rateBook'])->middleware('auth')->name('books.rate');
 
