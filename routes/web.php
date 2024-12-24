@@ -37,6 +37,8 @@ Route::prefix('admin')->group(function () {
     Route::prefix('books')->group(function () {
         Route::get('/', [AdminBookController::class, 'index'])->name('admin.book.index');
         Route::post('/', [AdminBookController::class, 'create'])->name('admin.book.create');
+        Route::put('/{id}', [AdminBookController::class, 'edit'])->name('admin.book.edit');
+        Route::delete('/{id}', [AdminBookController::class, 'destroy'])->name('admin.book.destroy');
     });
 
     Route::prefix('age_groups')->group(function () {

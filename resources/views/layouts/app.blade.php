@@ -27,6 +27,36 @@
                 </header>
             @endisset
 
+            <!-- Toast Notification -->
+            <div
+                x-data="{ show: false, message: '', type: 'success' }"
+                x-init="
+        @if (session()->has('status'))
+            show = true;
+            message = '{{ session('status') }}';
+            type = '{{ session('type', 'success') }}';
+            setTimeout(() => show = false, 3000);
+        @endif
+    "
+                x-show="show"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0 transform scale-90"
+                x-transition:enter-end="opacity-100 transform scale-100"
+                x-transition:leave="transition ease-in duration-300"
+                x-transition:leave-start="opacity-100 transform scale-100"
+                x-transition:leave-end="opacity-0 transform scale-90"
+                class="fixed top-4 right-4 px-4 py-2 rounded shadow-lg z-50"
+                :class="{
+        'bg-green-500 text-white': type === 'success',
+        'bg-red-500 text-white': type === 'error',
+        'bg-yellow-500 text-black': type === 'warning',
+        'bg-blue-500 text-white': type === 'info'
+    }"
+                style="display: none;"
+            >
+                <div x-text="message"></div>
+            </div>
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}

@@ -5,10 +5,11 @@ namespace App\Storage\Repository;
 use App\Http\Filters\BookFilter;
 use App\Models\Book;
 use App\Storage\FindsBooks;
+use App\Storage\StoresBook;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
-class BookRepository implements FindsBooks
+class BookRepository implements FindsBooks, StoresBook
 {
     /**
      * @return Collection<Book>
@@ -72,7 +73,17 @@ class BookRepository implements FindsBooks
 
     public function findBookById(int $id): ?Book
     {
-        return Book::with('authors')
+        return Book::with(['authors', 'ageGroup'])
             ->find($id);
+    }
+
+    public function store(Book $book): void
+    {
+        $book->save();
+    }
+
+    public function delete(Book $book): void
+    {
+        $book->delete();
     }
 }

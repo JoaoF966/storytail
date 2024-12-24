@@ -20,6 +20,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->singleton(AgeGroupRepository::class, function (Application $app) {
+            return new AgeGroupRepository();
+        });
+
+        $this->app->singleton(AgeGroupService::class, function (Application $app) {
+            $ageGroupRepository = $app->make(AgeGroupRepository::class);
+
+            return new AgeGroupService(
+                $ageGroupRepository,
+                $ageGroupRepository,
+            );
+        });
+
         $this->app->singleton(BookRepository::class, function (Application $app) {
             return new BookRepository();
         });
@@ -27,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(BookService::class, function (Application $app) {
             return new BookService(
                 $app->make(BookRepository::class),
+                $app->get(BookRepository::class),
                 $app->get(AgeGroupRepository::class),
             );
         });
@@ -54,19 +68,6 @@ class AppServiceProvider extends ServiceProvider
             return new AuthorService(
                $authorRepository,
                $authorRepository,
-            );
-        });
-
-        $this->app->singleton(AgeGroupRepository::class, function (Application $app) {
-            return new AgeGroupRepository();
-        });
-
-        $this->app->singleton(AgeGroupService::class, function (Application $app) {
-            $ageGroupRepository = $app->make(AgeGroupRepository::class);
-
-            return new AgeGroupService(
-               $ageGroupRepository,
-               $ageGroupRepository,
             );
         });
     }

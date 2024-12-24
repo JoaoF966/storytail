@@ -6,7 +6,7 @@ use App\AccessLevel;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 
-class NewBookValueObject
+class BookValueObject
 {
     private function __construct(
         private readonly string $title,
@@ -15,8 +15,8 @@ class NewBookValueObject
         private readonly int $readTime,
         private readonly AccessLevel $accessLevel,
         private readonly string|null $videoBookUrl,
-        private readonly UploadedFile $bookFile,
-        private readonly UploadedFile $coverImage,
+        private readonly UploadedFile|null $bookFile,
+        private readonly UploadedFile|null $coverImage,
     ) {
         if (!$this->title) {
             throw new \InvalidArgumentException('Title is required');
@@ -34,11 +34,11 @@ class NewBookValueObject
             throw new \InvalidArgumentException('Invalid video book URL');
         }
 
-        if (!$this->bookFile->isValid() || !$this->bookFile->isReadable()) {
+        if (null !== $this->bookFile && (!$this->bookFile->isValid() || !$this->bookFile->isReadable())) {
             throw new \InvalidArgumentException('Invalid book file');
         }
 
-        if (!$this->coverImage->isValid() || !$this->coverImage->isReadable()) {
+        if (null !== $this->coverImage && (!$this->coverImage->isValid() || !$this->coverImage->isReadable())) {
             throw new \InvalidArgumentException('Invalid cover image');
         }
     }
@@ -82,17 +82,17 @@ class NewBookValueObject
         return $this->accessLevel;
     }
 
-    public function getVideoBookUrl(): string
+    public function getVideoBookUrl(): ?string
     {
         return $this->videoBookUrl;
     }
 
-    public function getBookFile(): UploadedFile
+    public function getBookFile(): UploadedFile|null
     {
         return $this->bookFile;
     }
 
-    public function getCoverImage(): UploadedFile
+    public function getCoverImage(): UploadedFile|null
     {
         return $this->coverImage;
     }
