@@ -26,7 +26,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(BookService::class, function (Application $app) {
             return new BookService(
-                $app->make(BookRepository::class)
+                $app->make(BookRepository::class),
+                $app->get(AgeGroupRepository::class),
             );
         });
 

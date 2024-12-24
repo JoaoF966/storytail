@@ -18,6 +18,12 @@ return new class extends Migration {
         DB::statement(
             "alter table `books` modify `access_level` ENUM('premium', 'free') NOT NULL DEFAULT 'free';"
         );
+        DB::statement(
+            "alter table `books` add `video_book_url` varchar(255) default null;"
+        );
+        DB::statement(
+            "alter table `books` add `book_file_path` varchar(255) default null;"
+        );
     }
 
     /**

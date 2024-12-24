@@ -1,6 +1,6 @@
 <?php
 
-namespace database\database\migrations;
+namespace database\migrations;
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;

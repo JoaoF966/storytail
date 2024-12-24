@@ -38,11 +38,9 @@ RUN echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/xdebug.ini
     && echo "xdebug.discover_client_host=1" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.client_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini
 
-# COPY ./entrypoint.sh /
-
-# RUN ["chmod", "+x", "/entrypoint.sh"]
-
-# ENTRYPOINT ["/entrypoint.sh"]
+# Set PHP configuration for upload_max_filesize and post_max_size
+RUN echo "upload_max_filesize=20M" >> /usr/local/etc/php/php.ini \
+    && echo "post_max_size=21M" >> /usr/local/etc/php/php.ini
 
 WORKDIR /var/www/html
 

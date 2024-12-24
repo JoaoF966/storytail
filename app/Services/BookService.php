@@ -5,13 +5,16 @@ namespace App\Services;
 use App\Exceptions\BookNotFoundException;
 use App\Http\Filters\BookFilter;
 use App\Models\Book;
+use App\Storage\FindsAgeGroups;
 use App\Storage\FindsBooks;
+use App\ValueObject\NewBookValueObject;
 use Illuminate\Support\Collection;
 
 readonly class BookService
 {
     public function __construct(
-        private FindsBooks $books
+        private FindsBooks $books,
+        private FindsAgeGroups $ageGroups,
     ) {
     }
 
@@ -63,8 +66,20 @@ readonly class BookService
         throw BookNotFoundException::fromId($id);
     }
 
-    public function getRelatedBooks(Book $book): Collection
+    public function storeBook(NewBookValueObject $newBookValueObject): void
     {
+        $ageGroup = $this->ageGroups->findById($newBookValueObject->getAgeGroup()->getValue());
 
+        $book = new Book();
+        $book->title = $newBookValueObject->getTitle();
+        $book->description = $newBookValueObject->getDescription();
+        $book->age_group_id = $ageGroup->id;
+        $book->read_time = $newBookValueObject->getReadTime();
+        $book->access_level = $newBookValueObject->getAccessLevel()->value;
+        $book->video_book_url = $newBookValueObject->getVideoBookUrl();
+        $book->book_file_path = $newBookValueObject->getBookFile()->store('books', ['disk' => 'private']);
+        $book->cover_url = '/app/public/' . $newBookValueObject->getCoverImage()->store('covers', ['disk' => 'public']);
+
+        $book->save();
     }
 }
