@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exceptions\BookNotFoundException;
 use App\Exceptions\EmptyBookFileException;
 use App\Services\AgeGroupService;
+use App\Services\AuthorService;
 use App\Services\BookService;
 use App\Services\TagService;
 use App\ValueObject\BookValueObject;
@@ -20,6 +21,7 @@ class BookController
         private readonly BookService $bookService,
         private readonly AgeGroupService $ageGroupService,
         private readonly TagService $tagService,
+        private readonly AuthorService $authorService,
     ) {
     }
 
@@ -27,11 +29,13 @@ class BookController
         $books = $this->bookService->getAllBooks();
         $ageGroups = $this->ageGroupService->getAllAgeGroups();
         $tags = $this->tagService->getAllTags();
+        $authors = $this->authorService->getAllAuthors();
 
         return view('admin.book.index', [
             'books' => $books,
             'ageGroups' => $ageGroups,
             'tags' => $tags,
+            'authors' => $authors,
         ]);
     }
 
@@ -45,10 +49,7 @@ class BookController
             'access_level' => ['required', 'string', 'max:255', 'in:free,premium'],
             'video_book_url' => ['url', 'nullable'],
             'tags' => ['array'],
-        ]);
-
-        $request->validate([
-            'cover_image' => ['file', 'mimes:jpeg,png,jpg'],
+            'authors' => ['array'],
         ]);
 
         $this->bookService->storeBook(BookValueObject::fromRequest($request));
@@ -67,11 +68,8 @@ class BookController
             'read_time' => ['required', 'integer', 'min:1'],
             'access_level' => ['required', 'string', 'max:255', 'in:free,premium'],
             'video_book_url' => ['url', 'nullable'],
-        ]);
-
-        $request->validate([
-            'book_file' => ['file', 'mimes:pdf'],
-            'cover_image' => ['file', 'mimes:jpeg,png,jpg'],
+            'tags' => ['array'],
+            'authors' => ['array'],
         ]);
 
         $this->bookService->updateBook($id, BookValueObject::fromRequest($request));

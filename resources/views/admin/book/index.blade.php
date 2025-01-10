@@ -1,4 +1,5 @@
-<div x-data="{ showModal: false, book: {}, url: null, action: '', method: 'post', imagePreview: null, firstPageIsCover: true }">
+<div
+    x-data="{ showModal: false, book: {}, url: null, action: '', method: 'post', imagePreview: null, firstPageIsCover: true }">
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -73,8 +74,21 @@
                             </div>
 
                             <div class="relative z-0 w-full mb-5 group">
+                                <x-input-label for="tags" :value="__('Authors')"/>
+                                <x-select name="authors[]" id="authors" autocomplete="off" multiple=""
+                                          x-model="book.author_id">
+                                    @foreach ($authors as $author)
+                                        <option value="{{ $author->id }}">
+                                            {{ $author->completeName() }}
+                                        </option>
+                                    @endforeach
+                                </x-select>
+                                <x-input-error class="mt-2" :messages="$errors->get('tags')"/>
+                            </div>
+
+                            <div class="relative z-0 w-full mb-5 group">
                                 <x-input-label for="tags" :value="__('Tags')"/>
-                                <x-select name="tags" id="tags" autocomplete="off" multiple=""
+                                <x-select name="tags[]" id="tags" autocomplete="off" multiple=""
                                           x-model="book.tag_id">
                                     @foreach ($tags as $tag)
                                         <option value="{{ $tag->id }}">
@@ -92,30 +106,6 @@
                                               placeholder="https://www.youtube.com/watch?v=l5WgAr4B8Vo"
                                               autofocus x-model="book.video_book_url"/>
                                 <x-input-error class="mt-2" :messages="$errors->get('video_book_url')"/>
-                            </div>
-
-                            <div class="relative z-0 w-full mb-5 group">
-                                <x-input-label for="book_file" :value="__('Book file')"/>
-                                <span x-show="book.book_file_path" class="block font-medium text-sm text-gray-400">
-                                    Already exist, but you can upload a new one
-                                </span>
-                                <x-text-input type="file" id="book_file" name="book_file" accept="application/pdf"
-                                              class="mt-1 block w-full" autocomplete="off"/>
-                                <x-input-error class="mt-2" :messages="$errors->get('book_file')"/>
-                            </div>
-
-                            <div class="relative z-0 w-full mb-5 group">
-                                <x-input-label for="cover_image" :value="__('Cover Image')"/>
-                                <span x-show="book.cover_url" class="block font-medium text-sm text-gray-400">
-                                    Already exist, but you can upload a new one
-                                </span>
-                                <x-text-input type="file" id="cover_image" name="cover_image" accept="image/*"
-                                              class="mt-1 block w-full" autocomplete="off"
-                                              @change="let file = $event.target.files[0]; if (file) { imagePreview = URL.createObjectURL(file); }"/>
-                                <x-input-error class="mt-2" :messages="$errors->get('cover_image')"/>
-                                <div x-show="imagePreview" class="mt-2">
-                                    <img :src="imagePreview" alt="Image Preview" class="w-32 h-32 object-cover">
-                                </div>
                             </div>
 
                             <div class="mt-6 flex justify-end">
@@ -139,7 +129,6 @@
                             <th class="px-4 py-2 text-left">Is active</th>
                             <th class="px-4 py-2 text-left">Access level</th>
                             <th class="px-4 py-2 text-left">Is featured</th>
-                            <th class="px-4 py-2 text-left">Last updated at</th>
                             <th class="px-4 py-2 text-left"></th>
                         </tr>
                         </thead>
@@ -183,9 +172,6 @@
                                             class="inline-block bg-gray-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">No</span>
                                     @endif
                                 </td>
-                                <td class="px-4 py-2">
-                                    {{ $book->updated_at }}
-                                </td>
                                 <td class="px-4 py-2 text-end">
 
                                     <x-primary-button
@@ -198,14 +184,13 @@
                                                   d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"/>
                                         </svg>
                                     </x-primary-button>
-                                    <x-primary-button class="px-2" title="Upload pages"
+                                    <x-primary-button class="px-2" title="Import pages"
                                                       x-on:click.prevent="$dispatch('open-modal', 'book-upload-pages-form-modal'); method='post'; book = JSON.parse('{{ json_encode($book->toArray()) }}'); url = '{{ route('api.admin.book.import', ['id' => $book->id]) }}'; firstPageIsCover=true;">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                              stroke-width="1.5" stroke="currentColor" class="size-5">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                   d="M7.5 7.5h-.75A2.25 2.25 0 0 0 4.5 9.75v7.5a2.25 2.25 0 0 0 2.25 2.25h7.5a2.25 2.25 0 0 0 2.25-2.25v-7.5a2.25 2.25 0 0 0-2.25-2.25h-.75m0-3-3-3m0 0-3 3m3-3v11.25m6-2.25h.75a2.25 2.25 0 0 1 2.25 2.25v7.5a2.25 2.25 0 0 1-2.25 2.25h-7.5a2.25 2.25 0 0 1-2.25-2.25v-.75"/>
                                         </svg>
-
                                     </x-primary-button>
                                     <x-danger-button
                                         title="Delete book"
@@ -247,7 +232,8 @@
                     <!-- add check box that tells if the first page is the book cover -->
 
                     <label for="is_first_page_cover" class="block text-sm font-medium text-gray-700">
-                        <input type="checkbox" id="is_first_page_cover" name="is_first_page_cover" value="1" class="mr-3" checked="checked" x-model="firstPageIsCover"/>
+                        <input type="checkbox" id="is_first_page_cover" name="is_first_page_cover" value="1"
+                               class="mr-3" checked="checked" x-model="firstPageIsCover"/>
                         This book's first page is the book cover
                     </label>
                 </div>
@@ -284,16 +270,15 @@
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
             },
+            redirect: 'manual'
         })
-           .then(response => response.json())
-           .then(data => {
+            .then(response => response.json())
+            .then(data => {
                 if (data.errors) {
                     // handle errors
                 } else {
                     // handle success
-                    window.location.href = data.redirect_url;
                 }
             });
-
     })
 </script>

@@ -14,6 +14,8 @@ class BookValueObject
         private readonly int $readTime,
         private readonly AccessLevel $accessLevel,
         private readonly string|null $videoBookUrl,
+        private readonly array $tags,
+        private readonly array $authors,
     ) {
         if (!$this->title) {
             throw new \InvalidArgumentException('Title is required');
@@ -40,7 +42,9 @@ class BookValueObject
             Identifier::fromInt((int)$request->get('age_group')),
             $request->get('read_time'),
             AccessLevel::from($request->get('access_level')),
-            $request->get('video_book_url')
+            $request->get('video_book_url'),
+            $request->get('tags', []),
+            $request->get('authors', [])
         );
     }
 
@@ -74,4 +78,13 @@ class BookValueObject
         return $this->videoBookUrl;
     }
 
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    public function getAuthors(): array
+    {
+        return $this->authors;
+    }
 }

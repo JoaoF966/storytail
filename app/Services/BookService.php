@@ -85,16 +85,12 @@ readonly class BookService
         $book->read_time = $newBookValueObject->getReadTime();
         $book->access_level = $newBookValueObject->getAccessLevel()->value;
         $book->video_book_url = $newBookValueObject->getVideoBookUrl();
-
-        if ($newBookValueObject->getBookFile()) {
-            $book->book_file_path = $newBookValueObject->getBookFile()->store('books', ['disk' => 'private']);
-        }
-
-        if ($newBookValueObject->getCoverImage()) {
-            $book->cover_url = '/app/public/' . $newBookValueObject->getCoverImage()->store('covers', ['disk' => 'public']);
-        }
+        $book->cover_url = '/images/book1.png';
 
         $this->store->store($book);
+
+        $book->tags()->sync($newBookValueObject->getTags());
+        $book->authors()->sync($newBookValueObject->getAuthors());
     }
 
     public function updateBook(int $id, BookValueObject $updatedBookValueObject): void
@@ -114,13 +110,8 @@ readonly class BookService
         $book->read_time = $updatedBookValueObject->getReadTime();
         $book->access_level = $updatedBookValueObject->getAccessLevel()->value;
         $book->video_book_url = $updatedBookValueObject->getVideoBookUrl();
-
-        if ($updatedBookValueObject->getCoverImage()) {
-            if ($book->cover_url) {
-                Storage::disk('public')->delete(str_replace('/app/public/', '', $book->cover_url));
-            }
-            $book->cover_url = '/app/public/' . $updatedBookValueObject->getCoverImage()->store('covers', ['disk' => 'public']);
-        }
+        $book->tags()->sync($updatedBookValueObject->getTags());
+        $book->authors()->sync($updatedBookValueObject->getAuthors());
 
         $this->store->store($book);
     }
