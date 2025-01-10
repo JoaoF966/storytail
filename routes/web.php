@@ -64,6 +64,10 @@ Route::prefix('api')->group(function () {
     Route::prefix('books')->group(function () {
         Route::get('/', [ApiBookController::class, 'list'])->name('api.books.list');;
     });
+
+    Route::prefix('admin')->group(function () {
+        Route::post('/books/{id}/import', [AdminBookController::class, 'import'])->name('api.admin.book.import');
+    });
 });
 
 Route::get('/search', [HomeController::class, 'search'])->name('home.search');

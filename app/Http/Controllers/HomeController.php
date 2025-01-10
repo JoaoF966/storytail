@@ -21,8 +21,6 @@ class HomeController extends Controller
         $justAddedBooks = $this->bookService->getJustAddedBooks();
         $topReadBooks = $this->bookService->getTopReadBooks();
 
-        $id = $thisMonthBooks->get(0)->id;
-
         return view('home.index', [
             'thisMonthBooks' => $thisMonthBooks,
             'justAddedBooks' => $justAddedBooks,

@@ -6,7 +6,7 @@
         <div style="display: flex; gap: 40px; margin-bottom: 40px;">
             <!-- Imagem do Livro -->
             <div style="flex: 1;">
-                <img src="/{{ $book->cover_url }}" alt="Rodeo Red"
+                <img src="{{ $book->cover_url }}" alt="Rodeo Red"
                      style="width: 100%; border-radius: 8px;">
             </div>
 

@@ -1,4 +1,4 @@
-<div x-data="{ showModal: false, book: {}, url: null, action: '', method: 'post', imagePreview: null }">
+<div x-data="{ showModal: false, book: {}, url: null, action: '', method: 'post', imagePreview: null, firstPageIsCover: true }">
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -49,7 +49,8 @@
                                 </div>
                                 <div class="relative z-0 w-full mb-5 group">
                                     <x-input-label for="age_group" :value="__('Age group')"/>
-                                    <x-select name="age_group" id="age_group" autocomplete="off">
+                                    <x-select name="age_group" id="age_group" autocomplete="off"
+                                              x-model="book.age_group_id">
                                         @foreach ($ageGroups as $ageGroup)
                                             <option value="{{ $ageGroup->id }}">
                                                 {{ $ageGroup->age_group }}
@@ -65,16 +66,30 @@
                                               required x-model="book.access_level"
                                               autocomplete="access_level">
                                         <option value="free">Free</option>
-                                        <option value="Premium">Premium</option>
+                                        <option value="premium">Premium</option>
                                     </x-select>
                                     <x-input-error class="mt-2" :messages="$errors->get('access_level')"/>
                                 </div>
                             </div>
 
                             <div class="relative z-0 w-full mb-5 group">
+                                <x-input-label for="tags" :value="__('Tags')"/>
+                                <x-select name="tags" id="tags" autocomplete="off" multiple=""
+                                          x-model="book.tag_id">
+                                    @foreach ($tags as $tag)
+                                        <option value="{{ $tag->id }}">
+                                            {{ $tag->name }}
+                                        </option>
+                                    @endforeach
+                                </x-select>
+                                <x-input-error class="mt-2" :messages="$errors->get('tags')"/>
+                            </div>
+
+                            <div class="relative z-0 w-full mb-5 group">
                                 <x-input-label for="video_book_url" :value="__('Link to video book')"/>
                                 <x-text-input id="video_book_url" name="video_book_url" type="text"
-                                              class="mt-1 block w-full" placeholder="https://www.youtube.com/watch?v=l5WgAr4B8Vo"
+                                              class="mt-1 block w-full"
+                                              placeholder="https://www.youtube.com/watch?v=l5WgAr4B8Vo"
                                               autofocus x-model="book.video_book_url"/>
                                 <x-input-error class="mt-2" :messages="$errors->get('video_book_url')"/>
                             </div>
@@ -175,13 +190,22 @@
 
                                     <x-primary-button
                                         class="px-2" title="Edit book"
-                                        x-on:click.prevent="showModal = true; console.log('{{ json_encode($book->toArray()) }}'); book = JSON.parse('{{ json_encode($book->toArray()) }}'); url = '{{ route('admin.book.edit', ['id' => $book->id]) }}'; action = 'Edit'; method='put'; $dispatch('open-modal', 'book-form-modal')"
+                                        x-on:click.prevent="showModal = true; console.log(JSON.parse('{{ json_encode($book->toArray()) }}')); book = JSON.parse('{{ json_encode($book->toArray()) }}'); url = '{{ route('admin.book.edit', ['id' => $book->id]) }}'; action = 'Edit'; method='put'; $dispatch('open-modal', 'book-form-modal')"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                              stroke-width="1.5" stroke="currentColor" class="size-5">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                   d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"/>
                                         </svg>
+                                    </x-primary-button>
+                                    <x-primary-button class="px-2" title="Upload pages"
+                                                      x-on:click.prevent="$dispatch('open-modal', 'book-upload-pages-form-modal'); method='post'; book = JSON.parse('{{ json_encode($book->toArray()) }}'); url = '{{ route('api.admin.book.import', ['id' => $book->id]) }}'; firstPageIsCover=true;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                             stroke-width="1.5" stroke="currentColor" class="size-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M7.5 7.5h-.75A2.25 2.25 0 0 0 4.5 9.75v7.5a2.25 2.25 0 0 0 2.25 2.25h7.5a2.25 2.25 0 0 0 2.25-2.25v-7.5a2.25 2.25 0 0 0-2.25-2.25h-.75m0-3-3-3m0 0-3 3m3-3v11.25m6-2.25h.75a2.25 2.25 0 0 1 2.25 2.25v7.5a2.25 2.25 0 0 1-2.25 2.25h-7.5a2.25 2.25 0 0 1-2.25-2.25v-.75"/>
+                                        </svg>
+
                                     </x-primary-button>
                                     <x-danger-button
                                         title="Delete book"
@@ -192,7 +216,6 @@
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                   d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/>
                                         </svg>
-
                                     </x-danger-button>
                                 </td>
                             </tr>
@@ -202,6 +225,75 @@
                 </div>
             </div>
         </div>
-    </x-app-layout>
 
+        <x-modal name="book-upload-pages-form-modal" focusable>
+            <form method="post" :action="url" class="p-6" enctype="multipart/form-data" id="book-upload-pages-form">
+                @csrf
+                <input type="hidden" name="_method" x-model="method">
+                <h2 class="text-lg font-medium text-gray-900">
+                    Import pages for <i><span x-text="book.title"></span></i>
+                </h2>
+                <div class="relative z-0 w-full mb-5 group">
+                    <x-input-label for="book_file" :value="__('Book file')"/>
+                    <span x-show="book.book_file_path" class="block font-medium text-sm">
+                                    This book already has a file uploaded. If you want to replace it with all the pages, please upload a new one.
+                                </span>
+
+                    <x-text-input type="file" id="book_file" name="book_file" accept="application/pdf" required
+                                  class="mt-1 block w-full" autocomplete="off"/>
+                    <x-input-error class="mt-2" :messages="$errors->get('book_file')"/>
+                </div>
+                <div class="relative z-0 w-full mb-5 group">
+                    <!-- add check box that tells if the first page is the book cover -->
+
+                    <label for="is_first_page_cover" class="block text-sm font-medium text-gray-700">
+                        <input type="checkbox" id="is_first_page_cover" name="is_first_page_cover" value="1" class="mr-3" checked="checked" x-model="firstPageIsCover"/>
+                        This book's first page is the book cover
+                    </label>
+                </div>
+                <div class="relative z-0 w-full mb-5 group" x-show="!firstPageIsCover">
+                    <x-input-label for="cover_image" :value="__('Cover Image')"/>
+                    <span x-show="book.cover_url" class="block font-medium text-sm text-gray-400">
+                                    Already exist, but you can upload a new one
+                                </span>
+                    <x-text-input type="file" id="cover_image" name="cover_image" accept="image/*"
+                                  class="mt-1 block w-full" autocomplete="off"
+                                  @change="let file = $event.target.files[0]; if (file) { imagePreview = URL.createObjectURL(file); }"/>
+                    <x-input-error class="mt-2" :messages="$errors->get('cover_image')"/>
+                </div>
+                <div class="mt-6 flex justify-end">
+                    <x-secondary-button x-on:click="$dispatch('close')">
+                        {{ __('Cancel') }}
+                    </x-secondary-button>
+
+                    <x-primary-button class="ms-3">Generate pages</x-primary-button>
+                </div>
+            </form>
+        </x-modal>
+    </x-app-layout>
 </div>
+
+<script>
+    document.getElementById('book-upload-pages-form').addEventListener('submit', function (event) {
+        event.preventDefault()
+
+        // post the form via fetch
+        fetch(this.action, {
+            method: this.method,
+            body: new FormData(this),
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+        })
+           .then(response => response.json())
+           .then(data => {
+                if (data.errors) {
+                    // handle errors
+                } else {
+                    // handle success
+                    window.location.href = data.redirect_url;
+                }
+            });
+
+    })
+</script>

@@ -16,7 +16,7 @@ class BookRepository implements FindsBooks, StoresBook
      */
     public function findAllBooks(): Collection
     {
-        return Book::all();
+        return Book::with(['authors', 'ageGroup', 'tags'])->get();
     }
 
     /**
@@ -73,7 +73,7 @@ class BookRepository implements FindsBooks, StoresBook
 
     public function findBookById(int $id): ?Book
     {
-        return Book::with(['authors', 'ageGroup'])
+        return Book::with(['authors', 'ageGroup', 'pages'])
             ->find($id);
     }
 
@@ -85,5 +85,17 @@ class BookRepository implements FindsBooks, StoresBook
     public function delete(Book $book): void
     {
         $book->delete();
+    }
+
+    public function storePages(Book $book, array $pages): void
+    {
+        foreach ($pages as $page) {
+            $book->pages()->save($page);
+        }
+    }
+
+    public function deletePages(Book $book): void
+    {
+        $book->pages()->delete();
     }
 }

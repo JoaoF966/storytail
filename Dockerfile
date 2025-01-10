@@ -19,7 +19,13 @@ RUN apk add --no-cache \
 RUN docker-php-ext-configure gd --with-jpeg --with-webp --with-freetype
 RUN docker-php-ext-install gd
 
-# RUN  apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev
+# Install imagick dependencies and imagick itself
+RUN apk add --no-cache \
+        ghostscript \
+        imagemagick-dev \
+        imagemagick \
+        && pecl install imagick \
+        && docker-php-ext-enable imagick
 
 RUN apk add --no-cache \
         libzip-dev \
