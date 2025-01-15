@@ -28,14 +28,9 @@ class BookController extends Controller
     public function read(int $id)
     {
         $book = $this->bookService->getBookById($id);
-        return view('book.media', [
-            'currentPageImage' => 'images/Books/book105/Giraffes_Can_t_Dance_pages-to-jpg-0001.jpg',
-            'currentPageNumber' => 1,
-            'totalPages' => 31,
-            'bookId' => 'book105',
-            'showMovie' => $book->has_movie, // Verifica se o livro tem um filme associado
-            'movieFile' => $book->movie_file_path ?? null, // Caminho do filme, se existir
-            'book' => $book
+
+        return view('book.read', [
+            'book' => $book,
         ]);
     }
 

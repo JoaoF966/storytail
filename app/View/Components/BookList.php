@@ -13,7 +13,7 @@ class BookList extends Component
      * @param Collection<Book> $books
      */
     public function __construct(
-        public readonly string     $title,
+        public readonly string $title,
         public readonly Collection $books
     ) {
     }

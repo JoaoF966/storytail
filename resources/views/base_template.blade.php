@@ -143,6 +143,7 @@
             margin-top: 10px;
         }
     </style>
+    @yield('script')
 </head>
 <body>
     <!-- Header -->
@@ -150,9 +151,11 @@
         <!-- Top Bar -->
         <div class="top-bar">
             <div class="logo">
-                <img src="{{ asset('images/logotop.png') }}" alt="Storytail Logo">
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('images/logotop.png') }}" alt="Storytail Logo">
+                </a>
             </div>
-            <nav>
+            <nav class="hidden">
                 <a href="/new-books">New Books</a>
                 <a href="/picks">Our Picks</a>
                 <a href="/subscribe">Subscribe</a>

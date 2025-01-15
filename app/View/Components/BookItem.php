@@ -9,7 +9,8 @@ use Illuminate\View\Component;
 class BookItem extends Component
 {
     public function __construct(
-        public readonly Book $book
+        public readonly Book $book,
+        public readonly bool $isTemplate = false
     ) {
     }
 

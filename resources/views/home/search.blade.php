@@ -8,7 +8,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             <template x-for="book in books" :key="book.id">
-                <x-book-item :book="new Book()"/>
+                <x-book-item :book="new Book()" :isTemplate="true"/>
             </template>
         </div>
 
